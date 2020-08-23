@@ -1,25 +1,26 @@
 import React, { useState } from "react";
+import axios from "axios";
 
 const Todo = (props) => {
-  // const [toDoName, setTodoName] = useState("");
-  // const [toDoList, setToDoList] = useState([]);
-
-  const [toDoState, setToDoState] = useState({ userInput: "", toDoList: [] });
+  const [toDoName, setTodoName] = useState("");
+  const [toDoList, setToDoList] = useState([]);
 
   const inputChangeHandler = (event) => {
-    // setTodoName(event.target.value);
-    setToDoState({
-      userInput: event.target.value,
-      toDoList: toDoState.toDoList,
-    });
+    setTodoName(event.target.value);
   };
 
   const toDoAddHandler = () => {
-    // setToDoList(toDoList.concat(toDoName));
-    setToDoState({
-      userInput: toDoState.userInput,
-      toDoList: toDoState.toDoList.concat(toDoState.userInput),
-    });
+    setToDoList(toDoList.concat(toDoName));
+    axios
+      .post("https://hooks-tuts-57aa9.firebaseio.com/todos.json", {
+        name: toDoName,
+      })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (
@@ -28,13 +29,13 @@ const Todo = (props) => {
         type="text"
         placeholder="Todo"
         onChange={inputChangeHandler}
-        value={toDoState.userInput}
+        value={toDoName}
       />
       <button type="button" onClick={toDoAddHandler}>
         Add
       </button>
       <ul>
-        {toDoState.toDoList.map((todo) => (
+        {toDoList.map((todo) => (
           <li key={todo}>{todo}</li>
         ))}
       </ul>
