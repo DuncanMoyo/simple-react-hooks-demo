@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 
 const Todo = (props) => {
-  const inputState = useState("");
+  const [toDoName, setTodoName] = useState("");
 
   const inputChangeHandler = event => {
-    inputState[1](event.target.value)
+    setTodoName(event.target.value)
   }
 
   return (
@@ -13,7 +13,7 @@ const Todo = (props) => {
         type="text"
         placeholder="Todo"
         onChange={inputChangeHandler}
-        value={inputState[0]}
+        value={toDoName}
       />
       <button type="button">Add</button>
     </>
