@@ -3,10 +3,10 @@ import Todo from "./components/Todo";
 import Header from "./components/Header";
 import Auth from "./components/Auth";
 
-const App = (props) => {
+const App = props => {
   const [page, setPage] = useState("auth");
 
-  const switchPage = (pageName) => {
+  const switchPage = pageName => {
     setPage(pageName);
   };
 
@@ -17,9 +17,7 @@ const App = (props) => {
         onLoadAuth={switchPage.bind(this, "auth")}
       />
       <hr />
-      
-      {page === 'auth' ? <Auth /> : <Todo /> }
-    
+      {page === "auth" ? <Auth /> : <Todo />}
     </div>
   );
 };
